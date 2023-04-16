@@ -8,10 +8,10 @@ using namespace std;
 class ClashRoyaleDeck {
 public:
 	unordered_set<int> cards;
-	bool equals(ClashRoyaleDeck deck);
+	//bool equals(ClashRoyaleDeck deck);
 };
 
-bool ClashRoyaleDeck::equals(ClashRoyaleDeck deck) {
+/*bool ClashRoyaleDeck::equals(ClashRoyaleDeck deck) {
 	// ...
 	return false;
-}
+}*/
