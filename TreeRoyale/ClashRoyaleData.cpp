@@ -13,7 +13,7 @@ public:
 	ClashRoyaleData();
 };
 
-// Load API data into
+// Load API data into container
 ClashRoyaleData::ClashRoyaleData() {
 	
 }
