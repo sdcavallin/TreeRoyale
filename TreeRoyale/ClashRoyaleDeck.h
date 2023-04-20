@@ -6,9 +6,10 @@
 
 class ClashRoyaleDeck {
 public:
-	std::vector<int> cards;
+	std::unordered_set<int> cards;
 	int wins, gamesPlayed;
 	double winRate;
 	ClashRoyaleDeck(std::string deck);
+	ClashRoyaleDeck();
 	double computeWinRate();
 };
