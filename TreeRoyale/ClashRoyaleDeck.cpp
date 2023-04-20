@@ -9,7 +9,7 @@ ClashRoyaleDeck::ClashRoyaleDeck(std::string deck) {
 	std::string s = "";
 	for (int i = 0; i < deck.length(); i++) {
 		if (deck[i] == ',') {
-			cards.push_back(std::stoi(s));
+			cards.insert(std::stoi(s));
 			s = "";
 		}
 		else {
@@ -18,7 +18,14 @@ ClashRoyaleDeck::ClashRoyaleDeck(std::string deck) {
 	}
 }
 
+ClashRoyaleDeck::ClashRoyaleDeck() {
+	wins = 0;
+	gamesPlayed = 0;
+	winRate = 0;
+	cards.insert(-1);
+}
+
 double ClashRoyaleDeck::computeWinRate() {
-	winRate = (wins * 1.0) / gamesPlayed * 100;
+	winRate = (wins * 1.0) / (gamesPlayed * 1.0) * 100;
 	return winRate;
 }
