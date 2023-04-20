@@ -1,18 +1,18 @@
-#pragma once
-#include <string>
-#include <unordered_set>
+#include "ClashRoyaleDeck.h"
 
-using namespace std;
-
-
-class ClashRoyaleDeck {
-public:
-	unordered_set<int> cards;
-	//bool equals(ClashRoyaleDeck deck);
-	// not sure why equals function makes error, probably includes and pragma once
-};
-
-/*bool ClashRoyaleDeck::equals(ClashRoyaleDeck deck) {
-	// ...
-	return false;
-}*/
+ClashRoyaleDeck::ClashRoyaleDeck(std::string deck) {
+	wins = 0;
+	gamesPlayed = 0;
+	
+	int deckIndex = 0;
+	std::string s = "";
+	for (int i = 0; i < deck.length(); i++) {
+		if (deck[i] == ',') {
+			cards.push_back(std::stoi(s));
+			s = "";
+		}
+		else {
+			s += deck[i];
+		}
+	}
+}

@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "ClashRoyaleDeck.cpp"
+#include <unordered_set>
 
 using namespace std;
 
@@ -10,8 +10,11 @@ using namespace std;
 // For every player in the 100k, I need to query the API and get their profile information
 // I need to store 100k profile informations somehow. Likely a text file with my own format
 
+// Class Deprecated
+
 class ClashRoyalePlayer {
-	string name, playerTag, clanName;
+public:
+	string name, playerTag;
 	int trophies, rank, numWins;
-	ClashRoyaleDeck deck;
+	unordered_set<string> deck;
 };

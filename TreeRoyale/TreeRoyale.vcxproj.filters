@@ -15,10 +15,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\..\OneDrive\Documents\School\Data Structures &amp; Algorithms\TreeRoyale Project\top10k.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TreeRoyale.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClashRoyaleDeck.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClashRoyaleData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QueryResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="TreeRoyale.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ClashRoyaleData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ClashRoyalePlayer.cpp">
@@ -27,16 +44,11 @@
     <ClCompile Include="ClashRoyaleDeck.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\..\..\..\OneDrive\Documents\School\Data Structures &amp; Algorithms\TreeRoyale Project\top10k.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="QueryResult.cpp">
+    <ClCompile Include="ClashRoyaleData.cpp">
       <Filter>Source Files</Filter>
-    </ClInclude>
+    </ClCompile>
+    <ClCompile Include="QueryResult.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
