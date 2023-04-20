@@ -153,6 +153,7 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\OneDrive\Documents\School\Data Structures &amp; Algorithms\CR 750k battles\cardlist.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

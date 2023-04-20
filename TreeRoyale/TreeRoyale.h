@@ -7,7 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
-
+#include "ClashRoyaleData.h"
 
 void displayDecks(sf::RenderWindow& window, const std::vector<std::vector<sf::Sprite>>& deckSprites);
 void generateWindow();

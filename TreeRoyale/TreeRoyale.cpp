@@ -3,7 +3,8 @@
 using namespace std;
 
 int main() {
-    generateWindow();
+    //generateWindow();
+    ClashRoyaleData data;
 }
 
 void displayDecks(sf::RenderWindow& window, const vector<vector<sf::Sprite>>& deckSprites) {

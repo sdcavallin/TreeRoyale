@@ -8,5 +8,7 @@ class ClashRoyaleDeck {
 public:
 	std::vector<int> cards;
 	int wins, gamesPlayed;
+	double winRate;
 	ClashRoyaleDeck(std::string deck);
+	double computeWinRate();
 };
