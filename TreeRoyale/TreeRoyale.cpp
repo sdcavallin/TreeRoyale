@@ -80,8 +80,8 @@ void generateWindow(const vector<vector<int>>& sortedDecks) {
 
     sf::Texture backButtonTexture;
     sf::Texture forwardButtonTexture;
-    sf::Sprite backButton = createButton(backButtonTexture, "assets/back.png", sf::Vector2f(66, window.getSize().y - 70));
-    sf::Sprite forwardButton = createButton(forwardButtonTexture, "assets/next.png", sf::Vector2f(window.getSize().x - 183, window.getSize().y - 70));
+    sf::Sprite backButton = createButton(backButtonTexture, "assets/back.png", sf::Vector2f(68, window.getSize().y - 70));
+    sf::Sprite forwardButton = createButton(forwardButtonTexture, "assets/next.png", sf::Vector2f(window.getSize().x - 185, window.getSize().y - 70));
 
     sf::Font font;
     font.loadFromFile("assets/font.ttf");
