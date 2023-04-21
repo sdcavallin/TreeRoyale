@@ -7,6 +7,7 @@
 class ClashRoyaleDeck {
 public:
 	std::unordered_set<int> cards;
+	std::vector<int> sortedCards;
 	std::string deckStr;
 	static bool sortByPopularity; // false = winRate, true = gamesPlayed
 	int wins, gamesPlayed;
@@ -14,7 +15,6 @@ public:
 	ClashRoyaleDeck(std::string deck);
 	ClashRoyaleDeck();
 	double computeWinRate();
-	void printDeckAndSortValue();
-	void setSortBy(bool sortByPop); // not found ???
+	void printDeckAndSortValue(bool withCardNames);
 	bool operator<(const ClashRoyaleDeck& deck) const;
 };

@@ -6,7 +6,8 @@ class QueryResult {
 public:
 	std::vector<ClashRoyaleDeck> deckList;
 	int timeElapsed;
-	QueryResult(std::vector<ClashRoyaleDeck> decklist, int timeelapsed);
+	std::string queryType;
+	QueryResult(std::vector<ClashRoyaleDeck> decklist, int timeelapsed, std::string querytype);
 	QueryResult(bool sampleQuery);
 	QueryResult();
 	void print();

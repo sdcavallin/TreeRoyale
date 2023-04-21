@@ -8,11 +8,15 @@ int maxPage = 0;
 int main() {
     ClashRoyaleData data;
     // Goblin Giant = 60
-    QueryResult qr = data.queryRedBlackTree(14, 60, "winRate");
-
+    // Hunter = 44  <-- Discrepency between RedBlack and MinHeap results??
+    //QueryResult qr = data.queryRedBlackTree(3, 84, "popularity");
+    QueryResult qr = data.queryRedBlackTree(3, 93, "popularity");
     qr.print();
 
-    vector<vector<int>> sortedDecks = outputSortedDecks(qr);
+    QueryResult qr2 = data.queryMinHeap(3, 93, "popularity");
+    qr2.print();
+
+    vector<vector<int>> sortedDecks = outputSortedDecks(qr2);
     generateWindow(sortedDecks);
 }
 
