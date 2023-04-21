@@ -2,6 +2,9 @@
 
 using namespace std;
 
+int currentPage = 0;
+int maxPage = 0;
+
 int main() {
     ClashRoyaleData data;
     // Goblin Giant = 60
@@ -35,9 +38,19 @@ vector<vector<int>> outputSortedDecks(const QueryResult& queryResult) {
     return sortedDecks;
 }
 
-void displayDecks(sf::RenderWindow& window, const vector<vector<sf::Sprite>>& deckSprites) {
+sf::Sprite createButton(sf::Texture& texture, const std::string& imagePath, const sf::Vector2f& position) {
+    texture.loadFromFile(imagePath);
+    sf::Sprite button(texture);
+    button.setScale(117.0f / button.getLocalBounds().width, 60.0f / button.getLocalBounds().height);
+    button.setPosition(position);
+    return button;
+}
+
+void displayDecks(sf::RenderWindow& window, const vector<vector<sf::Sprite>>& deckSprites, int page) {
     float yPos = 100.0f;
-    for (const auto& row : deckSprites) {
+    int startIndex = page * 3;
+    for (int i = startIndex; i < startIndex + 3 && i < deckSprites.size(); ++i) {
+        const auto& row = deckSprites[i];
         float rowWidth = 0.0f;
         for (const auto& sprite : row) {
             rowWidth += sprite.getGlobalBounds().width + 10;
@@ -61,6 +74,13 @@ void displayDecks(sf::RenderWindow& window, const vector<vector<sf::Sprite>>& de
 void generateWindow(const vector<vector<int>>& sortedDecks) {
     sf::RenderWindow window(sf::VideoMode(1376, 768), "Tree Royale");
     window.setFramerateLimit(60);
+
+    maxPage = (sortedDecks.size() - 1) / 3;
+
+    sf::Texture backButtonTexture;
+    sf::Texture forwardButtonTexture;
+    sf::Sprite backButton = createButton(backButtonTexture, "assets/back.png", sf::Vector2f(66, window.getSize().y - 70));
+    sf::Sprite forwardButton = createButton(forwardButtonTexture, "assets/next.png", sf::Vector2f(window.getSize().x - 183, window.getSize().y - 70));
 
     sf::Font font;
     font.loadFromFile("assets/font.ttf");
@@ -143,10 +163,10 @@ void generateWindow(const vector<vector<int>>& sortedDecks) {
     float elapsedTimeTextX = (window.getSize().x - elapsedTimeText.getLocalBounds().width) / 2.0f;
     elapsedTimeText.setPosition(elapsedTimeTextX, window.getSize().y - elapsedTimeText.getLocalBounds().height - 10);
 
-    vector<vector<sf::Sprite>> deckSprites(3);
-    vector<sf::Texture> textures(24);
+    vector<vector<sf::Sprite>> deckSprites(sortedDecks.size());
+    vector<sf::Texture> textures(sortedDecks.size() * 8);
 
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < sortedDecks.size(); ++i) {
         for (int j = 0; j < 8; ++j) {
             int index = i * 8 + j;
             textures[index].loadFromFile("assets/cards/" + to_string(sortedDecks[i][j]) + ".png");
@@ -162,6 +182,17 @@ void generateWindow(const vector<vector<int>>& sortedDecks) {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
+            if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.mouseButton.button == sf::Mouse::Left) {
+                    sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+                    if (backButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && currentPage > 0) {
+                        currentPage--;
+                    }
+                    else if (forwardButton.getGlobalBounds().contains(mousePos.x, mousePos.y) && currentPage < maxPage) {
+                        currentPage++;
+                    }
+                }
+            }
         }
 
         window.clear(sf::Color::White);
@@ -174,11 +205,17 @@ void generateWindow(const vector<vector<int>>& sortedDecks) {
         window.draw(lastText);
         window.draw(globalRankText);
 
-        displayDecks(window, deckSprites);
+        displayDecks(window, deckSprites, currentPage);
+
+        if (currentPage > 0) {
+            window.draw(backButton);
+        }
+        if (currentPage < maxPage) {
+            window.draw(forwardButton);
+        }
 
         window.draw(elapsedTimeText);
         window.display();
     }
-
 }
 
