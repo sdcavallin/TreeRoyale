@@ -4,18 +4,13 @@ using namespace std;
 
 int main() {
     ClashRoyaleData data;
-    QueryResult queryResult;
-    vector<vector<int>> sortedDecks = outputSortedDecks(queryResult);
-    generateWindow(sortedDecks);
+    // Goblin Giant = 60
+    QueryResult qr = data.queryRedBlackTree(3, 60, "winRate");
 
-    QueryResult qr = data.queryRedBlackTree(3, "Goblin Giant", "winRate");
-    for (ClashRoyaleDeck deck : qr.deckList) {
-        deck.printDeckAndSortValue();
-    }
-    qr = data.queryRedBlackTree(3, "Goblin Giant", "popularity");
-    for (ClashRoyaleDeck deck : qr.deckList) {
-        deck.printDeckAndSortValue();
-    }
+    qr.print();
+
+    vector<vector<int>> sortedDecks = outputSortedDecks(qr);
+    generateWindow(sortedDecks);
 }
 
 vector<vector<int>> outputSortedDecks(const QueryResult& queryResult) {

@@ -58,9 +58,8 @@ ClashRoyaleData::ClashRoyaleData() {
 }
 
 // Example: Display the decks of the [topN] players who use [card] in their deck sorted by [sortBy]
-QueryResult ClashRoyaleData::queryRedBlackTree(int topN, std::string cardName, std::string sortBy) {
+QueryResult ClashRoyaleData::queryRedBlackTree(int topN, int card, std::string sortBy) {
     // Goblin Giant = 60
-    int card = 60;
     std::set<ClashRoyaleDeck> set;
     // first put everything into set then try reducing count
 
@@ -88,8 +87,8 @@ QueryResult ClashRoyaleData::queryRedBlackTree(int topN, std::string cardName, s
 }
 
 // Example: Display the decks of the [topN] players who use [card] in their deck sorted by [sortBy]
-QueryResult ClashRoyaleData::queryMinHeap(int topN, std::string cardName, std::string sortBy) {
-    QueryResult QR;
+QueryResult ClashRoyaleData::queryMinHeap(int topN, int card, std::string sortBy) {
+    QueryResult QR(true);
     return QR;
 }
 

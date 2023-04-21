@@ -11,7 +11,7 @@
 class ClashRoyaleData {
 public:
     std::unordered_map<std::string, ClashRoyaleDeck> deckMap;
-    QueryResult queryRedBlackTree(int topN, std::string cardName, std::string sortBy);
-    QueryResult queryMinHeap(int topN, std::string cardName, std::string sortBy);
+    QueryResult queryRedBlackTree(int topN, int card, std::string sortBy);
+    QueryResult queryMinHeap(int topN, int card, std::string sortBy);
     ClashRoyaleData();
 };

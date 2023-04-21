@@ -7,5 +7,7 @@ public:
 	std::vector<ClashRoyaleDeck> deckList;
 	int timeElapsed;
 	QueryResult(std::vector<ClashRoyaleDeck> decklist, int timeelapsed);
+	QueryResult(bool sampleQuery);
 	QueryResult();
+	void print();
 };

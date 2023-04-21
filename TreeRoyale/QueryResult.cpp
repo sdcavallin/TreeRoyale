@@ -6,7 +6,7 @@ QueryResult::QueryResult(std::vector<ClashRoyaleDeck> decklist, int timeelapsed)
 }
 
 // sample result
-QueryResult::QueryResult() {
+QueryResult::QueryResult(bool sampleQuery) {
 	std::vector<ClashRoyaleDeck> sampleDeckList;
 	ClashRoyaleDeck sampleDeck1("8,34,37,52,69,88,92,97,");
 	ClashRoyaleDeck sampleDeck2("6,10,30,31,35,72,92,104,");
@@ -16,4 +16,16 @@ QueryResult::QueryResult() {
 	sampleDeckList.push_back(sampleDeck3);
 	timeElapsed = 123;
 	deckList = sampleDeckList;
+}
+
+QueryResult::QueryResult() {
+	timeElapsed = 123;
+}
+
+void QueryResult::print() {
+	std::cout << "--- QueryResult ---\n";
+	for (ClashRoyaleDeck deck : deckList) {
+		deck.printDeckAndSortValue();
+	}
+	std::cout << "--- Time: " << timeElapsed << " ---\n";
 }
