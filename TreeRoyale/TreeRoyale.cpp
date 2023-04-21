@@ -12,7 +12,7 @@ int main() {
     QueryResult qr = data.queryRedBlackTree(9, 98, "popularity");
     qr.print();
 
-    QueryResult qr2 = data.queryMinHeap(9, 98, "popularity");
+    QueryResult qr2 = data.queryMinHeap(23, 93, "popularity");
     qr2.print();
 
     vector<vector<int>> sortedDecks = outputSortedDecks(qr2);
@@ -64,7 +64,7 @@ void displayDecks(sf::RenderWindow& window, const vector<vector<sf::Sprite>>& de
             window.draw(tempSprite);
             xPos += sprite.getGlobalBounds().width + 10;
             if (++cardIndex % 8 == 0) {
-                yPos += sprite.getGlobalBounds().height + 30;
+                yPos += sprite.getGlobalBounds().height + 29;
                 xPos = (window.getSize().x - rowWidth) / 2.0f;
             }
         }
