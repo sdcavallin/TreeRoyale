@@ -3,46 +3,70 @@
 using namespace std;
 
 int main() {
-    //generateWindow();
     ClashRoyaleData data;
+    QueryResult queryResult;
+    vector<vector<int>> sortedDecks = outputSortedDecks(queryResult);
+    generateWindow(sortedDecks);
+}
+
     
     QueryResult qr = data.queryRedBlackTree(3, "Goblin Giant", "winRate");
     for (ClashRoyaleDeck deck : qr.deckList) {
         deck.printDeckAndSortValue();
     }
-
-    qr = data.queryRedBlackTree(3, "Goblin Giant", "popularity");
-    for (ClashRoyaleDeck deck : qr.deckList) {
-        deck.printDeckAndSortValue();
+vector<vector<int>> outputSortedDecks(const QueryResult& queryResult) {
+    vector<vector<int>> sortedDecks;
+    for (const auto& deck : queryResult.deckList) {
+        vector<int> sortedDeck(deck.cards.begin(), deck.cards.end());
+        sort(sortedDeck.begin(), sortedDeck.end());
+        sortedDecks.push_back(sortedDeck);
     }
+    int deckIndex = 1;
+    for (const auto& sortedDeck : sortedDecks) {
+        cout << "Deck " << deckIndex << ": ";
+        for (const auto& cardID : sortedDeck) {
+            cout << cardID << " ";
+        }
+        cout << endl;
+        deckIndex++;
+    }
+    return sortedDecks;
 }
 
 void displayDecks(sf::RenderWindow& window, const vector<vector<sf::Sprite>>& deckSprites) {
     float yPos = 100.0f;
     for (const auto& row : deckSprites) {
-        float totalWidth = 0.0f;
+        float rowWidth = 0.0f;
         for (const auto& sprite : row) {
-            totalWidth += sprite.getGlobalBounds().width + 10;
+            rowWidth += sprite.getGlobalBounds().width + 10;
         }
-        totalWidth -= 10;
-
-        float xPos = (window.getSize().x - totalWidth) / 2.0f;
+        rowWidth -= 10;
+        float xPos = (window.getSize().x - rowWidth) / 2.0f;
+        int cardIndex = 0;
         for (const auto& sprite : row) {
             sf::Sprite tempSprite = sprite;
             tempSprite.setPosition(xPos, yPos);
             window.draw(tempSprite);
             xPos += sprite.getGlobalBounds().width + 10;
+            if (++cardIndex % 8 == 0) {
+                yPos += sprite.getGlobalBounds().height + 30;
+                xPos = (window.getSize().x - rowWidth) / 2.0f;
+            }
         }
-        yPos += row[0].getGlobalBounds().height + 10;
     }
 }
 
-void generateWindow() {
+void generateWindow(const vector<vector<int>>& sortedDecks) {
     sf::RenderWindow window(sf::VideoMode(1376, 768), "Tree Royale");
     window.setFramerateLimit(60);
 
     sf::Font font;
     font.loadFromFile("assets/font.ttf");
+
+    sf::Texture backgroundTexture;
+    backgroundTexture.loadFromFile("assets/background.png");
+    sf::Sprite backgroundSprite;
+    backgroundSprite.setTexture(backgroundTexture);
 
     sf::Text titleText;
     titleText.setFont(font);
@@ -117,16 +141,15 @@ void generateWindow() {
     float elapsedTimeTextX = (window.getSize().x - elapsedTimeText.getLocalBounds().width) / 2.0f;
     elapsedTimeText.setPosition(elapsedTimeTextX, window.getSize().y - elapsedTimeText.getLocalBounds().height - 10);
 
-    // Test images
     vector<vector<sf::Sprite>> deckSprites(3);
-    vector<sf::Texture> textures(3);
-    const vector<string> imageFiles = { "assets/cards/barbarians.png", "assets/cards/archers.png", "assets/cards/goblins.png" };
+    vector<sf::Texture> textures(24);
 
     for (int i = 0; i < 3; ++i) {
-        textures[i].loadFromFile(imageFiles[i]);
         for (int j = 0; j < 8; ++j) {
+            int index = i * 8 + j;
+            textures[index].loadFromFile("assets/cards/" + to_string(sortedDecks[i][j]) + ".png");
             sf::Sprite sprite;
-            sprite.setTexture(textures[i]);
+            sprite.setTexture(textures[index]);
             deckSprites[i].push_back(sprite);
         }
     }
@@ -140,6 +163,7 @@ void generateWindow() {
         }
 
         window.clear(sf::Color::White);
+        window.draw(backgroundSprite);
         window.draw(titleText);
         window.draw(userInputText);
         window.draw(top3Text);
@@ -155,6 +179,4 @@ void generateWindow() {
     }
 
 }
-
-
 

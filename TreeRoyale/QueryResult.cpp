@@ -15,4 +15,5 @@ QueryResult::QueryResult() {
 	sampleDeckList.push_back(sampleDeck2);
 	sampleDeckList.push_back(sampleDeck3);
 	timeElapsed = 123;
+	deckList = sampleDeckList;
 }
