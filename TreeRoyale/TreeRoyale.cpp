@@ -5,8 +5,16 @@ using namespace std;
 int main() {
     //generateWindow();
     ClashRoyaleData data;
+    
+    QueryResult qr = data.queryRedBlackTree(3, "Goblin Giant", "winRate");
+    for (ClashRoyaleDeck deck : qr.deckList) {
+        deck.printDeckAndSortValue();
+    }
 
-
+    qr = data.queryRedBlackTree(3, "Goblin Giant", "popularity");
+    for (ClashRoyaleDeck deck : qr.deckList) {
+        deck.printDeckAndSortValue();
+    }
 }
 
 void displayDecks(sf::RenderWindow& window, const vector<vector<sf::Sprite>>& deckSprites) {

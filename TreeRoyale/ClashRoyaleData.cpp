@@ -14,7 +14,7 @@ ClashRoyaleData::ClashRoyaleData() {
         std::string card = "";
         std::getline(str, card, ','); // skip index
         int i = 0;
-        while (std::getline(str, card, ',') && i < 8) {
+        while (i < 8 && std::getline(str, card, ',')) {
             deckStr1 += card + ",";
             i++;
         }
@@ -25,7 +25,7 @@ ClashRoyaleData::ClashRoyaleData() {
         deckMap[deckStr1].gamesPlayed++;
 
         i = 0;
-        while (std::getline(str, card, ',') && i < 8) {
+        while (i < 8 && std::getline(str, card, ',')) {
             deckStr2 += card + ",";
             i++;
         }
@@ -47,19 +47,48 @@ ClashRoyaleData::ClashRoyaleData() {
         
     }
     std::cout << "[Data] Loading Done!\n";
+    std::cout << "[Data] Computing Winrates...\n";
+
+    for (auto it = deckMap.begin(); it != deckMap.end(); it++) {
+        it->second.computeWinRate();
+    }
+
+    std::cout << "[Data] Done!\n";
     std::cout << "[Data] Winrate for deck [5,6,12,13,29,37,88,94,]: " << deckMap["5,6,12,13,29,37,88,94,"].computeWinRate() << "%\n";
 }
 
 // Example: Display the decks of the [topN] players who use [card] in their deck sorted by [sortBy]
-QueryResult ClashRoyaleData::queryRedBlackTree(int topN, std::string card, std::string sortBy) {
+QueryResult ClashRoyaleData::queryRedBlackTree(int topN, std::string cardName, std::string sortBy) {
     // Goblin Giant = 60
+    int card = 60;
+    std::set<ClashRoyaleDeck> set;
+    // first put everything into set then try reducing count
 
-    QueryResult QR;
-    return QR;
+    if (sortBy == "popularity") {
+        ClashRoyaleDeck::sortByPopularity = true;
+    }
+    else {
+        ClashRoyaleDeck::sortByPopularity = false;
+    }
+
+    for (auto it = deckMap.begin(); it != deckMap.end(); it++) {
+        ClashRoyaleDeck deck = it->second;
+        if (deck.cards.find(card) != deck.cards.end()) set.insert(deck);
+    }
+
+    QueryResult qr;
+    int i = 0;
+    for (auto deck : set) {
+        if (i >= topN) break;
+        qr.deckList.push_back(deck);
+        i++;
+    }
+;
+    return qr;
 }
 
 // Example: Display the decks of the [topN] players who use [card] in their deck sorted by [sortBy]
-QueryResult ClashRoyaleData::queryMinHeap(int topN, std::string card, std::string sortBy) {
+QueryResult ClashRoyaleData::queryMinHeap(int topN, std::string cardName, std::string sortBy) {
     QueryResult QR;
     return QR;
 }
