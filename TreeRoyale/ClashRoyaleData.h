@@ -13,8 +13,6 @@
 class ClashRoyaleData {
 public:
     std::unordered_map<std::string, ClashRoyaleDeck> deckMap;
-    static std::unordered_map<int, std::string> getCardName;
-    static std::unordered_map<std::string, int> getCardId;
     QueryResult queryRedBlackTree(int topN, int card, std::string sortBy);
     QueryResult queryMinHeap(int topN, int card, std::string sortBy);
     ClashRoyaleData();

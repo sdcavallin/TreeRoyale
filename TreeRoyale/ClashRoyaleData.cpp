@@ -1,8 +1,6 @@
 #include "ClashRoyaleData.h"
 #include "QueryResult.h" // ???
 
-std::unordered_map<int, std::string> ClashRoyaleData::getCardName;
-std::unordered_map<std::string, int> ClashRoyaleData::getCardId;
 
 // Load API data into container
 ClashRoyaleData::ClashRoyaleData() {
@@ -52,19 +50,7 @@ ClashRoyaleData::ClashRoyaleData() {
     f.close();
     std::cout << "[Data] Loading Done!\n";
 
-    f.open("cardlist.csv");
-    getline(f, line); // skip first line
-    while (getline(f, line)) {
-        std::string s;
-        std::stringstream str(line);
-        std::getline(str, s, ','); // skip index
-        std::getline(str, s, ','); // get id
-        int id = stoi(s);
-        std::getline(str, s, ','); // get card name
-        getCardName[id] = s;
-        getCardId[s] = id;
-    }
-    f.close();
+    ClashRoyaleDeck::loadMaps();
 
     std::cout << "[Data] Computing Winrates...\n";
 

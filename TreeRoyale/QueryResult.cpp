@@ -30,7 +30,7 @@ QueryResult::QueryResult() {
 void QueryResult::print() {
 	std::cout << "--- Query " << queryType << " --- \n";
 	for (ClashRoyaleDeck deck : deckList) {
-		deck.printDeckAndSortValue(false);
+		deck.printDeckAndSortValue(true);
 	}
 	std::cout << "---- Time: " << timeElapsed << "ms ----\n";
 }
