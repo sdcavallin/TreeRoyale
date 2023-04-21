@@ -1,5 +1,8 @@
 #include "ClashRoyaleDeck.h"
 
+std::unordered_map<int, std::string> ClashRoyaleDeck::getCardName;
+std::unordered_map<std::string, int> ClashRoyaleDeck::getCardId;
+
 ClashRoyaleDeck::ClashRoyaleDeck(std::string deck) {
 	wins = 0;
 	gamesPlayed = 0;
@@ -33,11 +36,28 @@ double ClashRoyaleDeck::computeWinRate() {
 	return winRate;
 }
 
+void ClashRoyaleDeck::loadMaps() {
+	std::ifstream f("cardlist.csv");
+	std::string line;
+	getline(f, line); // skip first line
+	while (getline(f, line)) {
+		std::string s;
+		std::stringstream str(line);
+		getline(str, s, ','); // skip index
+		getline(str, s, ','); // get id
+		int id = stoi(s);
+		getline(str, s, ','); // get card name
+		getCardName[id] = s;
+		getCardId[s] = id;
+	}
+	f.close();
+}
+
 void ClashRoyaleDeck::printDeckAndSortValue(bool withCardNames) {
 	if (withCardNames) {
 		std::cout << "[";
 		for (int card : sortedCards) {
-			//std::cout << ClashRoyaleData::getCardName[card] << ",";
+			std::cout << getCardName[card] << ",";
 		}
 		std::cout << "]: " << gamesPlayed << " | " << winRate << "%\n";
 	}
