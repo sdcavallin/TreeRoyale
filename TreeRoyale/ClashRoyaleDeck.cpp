@@ -12,6 +12,7 @@ ClashRoyaleDeck::ClashRoyaleDeck(std::string deck) {
 	for (int i = 0; i < deck.length(); i++) {
 		if (deck[i] == ',') {
 			cards.insert(std::stoi(s));
+			sortedCards.push_back(std::stoi(s));
 			s = "";
 		}
 		else {
@@ -32,17 +33,22 @@ double ClashRoyaleDeck::computeWinRate() {
 	return winRate;
 }
 
-void ClashRoyaleDeck::printDeckAndSortValue() {
-	std::cout << "[" << deckStr << "]: " << gamesPlayed << " | " << winRate << "%\n";
-}
-
-void ClashRoyaleDeck::setSortBy(bool sortByPop) {
-	sortByPopularity = sortByPop;
+void ClashRoyaleDeck::printDeckAndSortValue(bool withCardNames) {
+	if (withCardNames) {
+		std::cout << "[";
+		for (int card : sortedCards) {
+			//std::cout << ClashRoyaleData::getCardName[card] << ",";
+		}
+		std::cout << "]: " << gamesPlayed << " | " << winRate << "%\n";
+	}
+	else {
+		std::cout << "[" << deckStr << "]: " << gamesPlayed << " | " << winRate << "%\n";
+	}
 }
 
 bool ClashRoyaleDeck::sortByPopularity = false;
 
 bool ClashRoyaleDeck::operator<(const ClashRoyaleDeck& deck) const {
 	if (sortByPopularity) return (gamesPlayed > deck.gamesPlayed);
-	else return (winRate > deck.winRate); // reverse order
+	else return (winRate > deck.winRate);
 }

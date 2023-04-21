@@ -1,6 +1,9 @@
 #include "ClashRoyaleData.h"
 #include "QueryResult.h" // ???
 
+std::unordered_map<int, std::string> ClashRoyaleData::getCardName;
+std::unordered_map<std::string, int> ClashRoyaleData::getCardId;
+
 // Load API data into container
 ClashRoyaleData::ClashRoyaleData() {
     std::cout << "[Data] Loading 100,000 data points...\n";
@@ -46,7 +49,23 @@ ClashRoyaleData::ClashRoyaleData() {
         }
         
     }
+    f.close();
     std::cout << "[Data] Loading Done!\n";
+
+    f.open("cardlist.csv");
+    getline(f, line); // skip first line
+    while (getline(f, line)) {
+        std::string s;
+        std::stringstream str(line);
+        std::getline(str, s, ','); // skip index
+        std::getline(str, s, ','); // get id
+        int id = stoi(s);
+        std::getline(str, s, ','); // get card name
+        getCardName[id] = s;
+        getCardId[s] = id;
+    }
+    f.close();
+
     std::cout << "[Data] Computing Winrates...\n";
 
     for (auto it = deckMap.begin(); it != deckMap.end(); it++) {
@@ -54,14 +73,13 @@ ClashRoyaleData::ClashRoyaleData() {
     }
 
     std::cout << "[Data] Done!\n";
-    std::cout << "[Data] Winrate for deck [5,6,12,13,29,37,88,94,]: " << deckMap["5,6,12,13,29,37,88,94,"].computeWinRate() << "%\n";
+    //std::cout << "[Data] Winrate for deck [5,6,12,13,29,37,88,94,]: " << deckMap["5,6,12,13,29,37,88,94,"].computeWinRate() << "%\n";
 }
 
-// Example: Display the decks of the [topN] players who use [card] in their deck sorted by [sortBy]
+// Example: Display the [topN] decks containing [card] sorted by [sortBy]
 QueryResult ClashRoyaleData::queryRedBlackTree(int topN, int card, std::string sortBy) {
-    // Goblin Giant = 60
+    auto startTime = std::chrono::high_resolution_clock::now();
     std::set<ClashRoyaleDeck> set;
-    // first put everything into set then try reducing count
 
     if (sortBy == "popularity") {
         ClashRoyaleDeck::sortByPopularity = true;
@@ -77,19 +95,64 @@ QueryResult ClashRoyaleData::queryRedBlackTree(int topN, int card, std::string s
 
     QueryResult qr;
     int i = 0;
-    for (auto deck : set) {
+    for (ClashRoyaleDeck deck : set) {
         if (i >= topN) break;
         qr.deckList.push_back(deck);
         i++;
     }
-;
+    //std::cout << (set.find(deckMap["28,38,44,46,50,59,102,103,"]))->gamesPlayed;
+    qr.queryType = "RedBlack";
+
+    auto endTime = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
+
+    qr.timeElapsed = (int) duration.count();
+
     return qr;
 }
 
-// Example: Display the decks of the [topN] players who use [card] in their deck sorted by [sortBy]
+// Example: Display the [topN] decks containing [card] sorted by [sortBy]
 QueryResult ClashRoyaleData::queryMinHeap(int topN, int card, std::string sortBy) {
-    QueryResult QR(true);
-    return QR;
+    auto startTime = std::chrono::high_resolution_clock::now();
+    std::priority_queue<ClashRoyaleDeck> pq;
+
+    if (sortBy == "popularity") {
+        ClashRoyaleDeck::sortByPopularity = true;
+    }
+    else {
+        ClashRoyaleDeck::sortByPopularity = false;
+    }
+
+    for (auto it = deckMap.begin(); it != deckMap.end(); it++) {
+        ClashRoyaleDeck deck = it->second;
+        if (deck.cards.find(card) != deck.cards.end()) {
+            if (pq.size() < topN) {
+                pq.push(deck);
+            }
+            else {
+                if (deck < pq.top()) {
+                    pq.pop();
+                    pq.push(deck);
+                }
+            }
+        }
+    }
+
+    QueryResult qr;
+    while (!pq.empty()) {
+        qr.deckList.push_back(pq.top());
+        pq.pop();
+    }
+    qr.queryType = "MinHeap";
+
+    std::reverse(qr.deckList.begin(), qr.deckList.end());
+
+    auto endTime = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
+    
+    qr.timeElapsed = (int) duration.count();
+
+    return qr;
 }
 
 /* // old json parse
