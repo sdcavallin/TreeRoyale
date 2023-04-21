@@ -7,13 +7,17 @@ int main() {
     QueryResult queryResult;
     vector<vector<int>> sortedDecks = outputSortedDecks(queryResult);
     generateWindow(sortedDecks);
-}
 
-    
     QueryResult qr = data.queryRedBlackTree(3, "Goblin Giant", "winRate");
     for (ClashRoyaleDeck deck : qr.deckList) {
         deck.printDeckAndSortValue();
     }
+    qr = data.queryRedBlackTree(3, "Goblin Giant", "popularity");
+    for (ClashRoyaleDeck deck : qr.deckList) {
+        deck.printDeckAndSortValue();
+    }
+}
+
 vector<vector<int>> outputSortedDecks(const QueryResult& queryResult) {
     vector<vector<int>> sortedDecks;
     for (const auto& deck : queryResult.deckList) {
