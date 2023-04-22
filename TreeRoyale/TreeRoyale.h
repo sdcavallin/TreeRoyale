@@ -13,4 +13,4 @@
 
 std::vector<std::vector<int>> outputSortedDecks(const QueryResult& queryResult);
 void displayDecks(sf::RenderWindow& window, const std::vector<std::vector<sf::Sprite>>& deckSprites);
-void generateWindow(const std::vector<std::vector<int>>& sortedDecks);
+void generateWindow(const std::vector<std::vector<int>>& sortedDecks, const QueryResult& qr, const QueryResult& qr2);

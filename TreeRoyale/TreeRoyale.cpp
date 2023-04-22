@@ -18,7 +18,7 @@ int main() {
     ClashRoyaleDeck::getCardName[98];
 
     vector<vector<int>> sortedDecks = outputSortedDecks(qr2);
-    generateWindow(sortedDecks);
+    generateWindow(sortedDecks, qr, qr2);
 }
 
 vector<vector<int>> outputSortedDecks(const QueryResult& queryResult) {
@@ -73,7 +73,7 @@ void displayDecks(sf::RenderWindow& window, const vector<vector<sf::Sprite>>& de
     }
 }
 
-void generateWindow(const vector<vector<int>>& sortedDecks) {
+void generateWindow(const vector<vector<int>>& sortedDecks, const QueryResult& qr, const QueryResult& qr2) {
     sf::RenderWindow window(sf::VideoMode(1376, 768), "Tree Royale");
     window.setFramerateLimit(60);
 
@@ -81,8 +81,8 @@ void generateWindow(const vector<vector<int>>& sortedDecks) {
 
     sf::Texture backButtonTexture;
     sf::Texture forwardButtonTexture;
-    sf::Sprite backButton = createButton(backButtonTexture, "assets/back.png", sf::Vector2f(66, window.getSize().y - 70));
-    sf::Sprite forwardButton = createButton(forwardButtonTexture, "assets/next.png", sf::Vector2f(window.getSize().x - 183, window.getSize().y - 70));
+    sf::Sprite backButton = createButton(backButtonTexture, "assets/back.png", sf::Vector2f(68, window.getSize().y - 70));
+    sf::Sprite forwardButton = createButton(forwardButtonTexture, "assets/next.png", sf::Vector2f(window.getSize().x - 185, window.getSize().y - 70));
 
     sf::Font font;
     font.loadFromFile("assets/font.ttf");
@@ -161,7 +161,7 @@ void generateWindow(const vector<vector<int>>& sortedDecks) {
     elapsedTimeText.setFont(font);
     elapsedTimeText.setCharacterSize(14);
     elapsedTimeText.setFillColor(sf::Color::Black);
-    elapsedTimeText.setString("Time Elapsed: Using Red-Black Tree: 123ms / Using Max Heap: 456ms");
+    elapsedTimeText.setString("Time Elapsed: Using Red-Black Tree: " + std::to_string(qr.timeElapsed) + "ms / Using Min Heap: " + std::to_string(qr2.timeElapsed) + "ms");
     float elapsedTimeTextX = (window.getSize().x - elapsedTimeText.getLocalBounds().width) / 2.0f;
     elapsedTimeText.setPosition(elapsedTimeTextX, window.getSize().y - elapsedTimeText.getLocalBounds().height - 10);
 
