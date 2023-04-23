@@ -8,7 +8,6 @@ int maxPage = 0;
 int main() {
     ClashRoyaleData data;
     // Goblin Giant = 60
-    // Hunter = 44  <-- Discrepency between RedBlack and MinHeap results??
     QueryResult qr = data.queryRedBlackTree(12, 60, "popularity");
     qr.print();
 
