@@ -76,7 +76,9 @@ QueryResult ClashRoyaleData::queryRedBlackTree(int topN, int card, std::string s
 
     for (auto it = deckMap.begin(); it != deckMap.end(); it++) {
         ClashRoyaleDeck deck = it->second;
-        if (deck.cards.find(card) != deck.cards.end()) set.insert(deck);
+        if (deck.cards.find(card) != deck.cards.end()) {
+            set.insert(deck);
+        }
     }
 
     QueryResult qr;

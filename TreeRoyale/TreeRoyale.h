@@ -5,7 +5,6 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
-#include <nlohmann/json.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
