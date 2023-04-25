@@ -18,9 +18,6 @@
     <None Include="..\..\..\..\OneDrive\Documents\School\Data Structures &amp; Algorithms\CR 750k battles\cardlist.csv" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\..\OneDrive\Documents\School\Data Structures &amp; Algorithms\TreeRoyale Project\top10k.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="TreeRoyale.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -36,9 +33,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TreeRoyale.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ClashRoyalePlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ClashRoyaleDeck.cpp">

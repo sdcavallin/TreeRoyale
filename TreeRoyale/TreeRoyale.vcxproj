@@ -155,9 +155,6 @@
     <None Include="..\..\..\..\OneDrive\Documents\School\Data Structures &amp; Algorithms\CR 750k battles\cardlist.csv" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\..\OneDrive\Documents\School\Data Structures &amp; Algorithms\TreeRoyale Project\top10k.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="ClashRoyaleData.h" />
     <ClInclude Include="ClashRoyaleDeck.h" />
     <ClInclude Include="QueryResult.h" />
@@ -166,7 +163,6 @@
   <ItemGroup>
     <ClCompile Include="ClashRoyaleData.cpp" />
     <ClCompile Include="ClashRoyaleDeck.cpp" />
-    <ClCompile Include="ClashRoyalePlayer.cpp" />
     <ClCompile Include="QueryResult.cpp" />
     <ClCompile Include="TreeRoyale.cpp" />
   </ItemGroup>
