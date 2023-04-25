@@ -15,7 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="..\..\..\..\OneDrive\Documents\School\Data Structures &amp; Algorithms\CR 750k battles\cardlist.csv" />
   </ItemGroup>
   <ItemGroup>

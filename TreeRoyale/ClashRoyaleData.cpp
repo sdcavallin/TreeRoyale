@@ -59,7 +59,6 @@ ClashRoyaleData::ClashRoyaleData() {
     }
 
     std::cout << "[Data] Done!\n";
-    //std::cout << "[Data] Winrate for deck [5,6,12,13,29,37,88,94,]: " << deckMap["5,6,12,13,29,37,88,94,"].computeWinRate() << "%\n";
 }
 
 // Example: Display the [topN] decks containing [card] sorted by [sortBy]
@@ -76,7 +75,9 @@ QueryResult ClashRoyaleData::queryRedBlackTree(int topN, int card, std::string s
 
     for (auto it = deckMap.begin(); it != deckMap.end(); it++) {
         ClashRoyaleDeck deck = it->second;
-        if (deck.cards.find(card) != deck.cards.end()) set.insert(deck);
+        if (deck.cards.find(card) != deck.cards.end()) {
+            set.insert(deck);
+        }
     }
 
     QueryResult qr;

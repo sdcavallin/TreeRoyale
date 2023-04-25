@@ -33,6 +33,13 @@ ClashRoyaleDeck::ClashRoyaleDeck() {
 
 double ClashRoyaleDeck::computeWinRate() {
 	winRate = (wins * 1.0) / (gamesPlayed * 1.0) * 100;
+	// serves as a requirement for minimum number of games played in order to be included in sort by win rate results
+	if (gamesPlayed <= 3) winRate = 0;
+	else if (gamesPlayed <= 12) winRate = winRate * (log2(gamesPlayed) / 6);
+	else if (gamesPlayed <= 16) winRate = winRate * (log2(gamesPlayed) / 4);
+	// weighting winrate as slightly higher if deck is more popular
+	winRate = winRate + 1.5*(log2(gamesPlayed) - 4);
+	
 	return winRate;
 }
 
@@ -69,6 +76,10 @@ void ClashRoyaleDeck::printDeckAndSortValue(bool withCardNames) {
 bool ClashRoyaleDeck::sortByPopularity = false;
 
 bool ClashRoyaleDeck::operator<(const ClashRoyaleDeck& deck) const {
-	if (sortByPopularity) return (gamesPlayed > deck.gamesPlayed);
-	else return (winRate > deck.winRate);
+	if (sortByPopularity) {
+		return (gamesPlayed > deck.gamesPlayed);
+	}
+	else {
+		return (winRate > deck.winRate);
+	}
 }

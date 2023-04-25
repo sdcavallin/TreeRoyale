@@ -6,6 +6,7 @@
 #include <sstream>
 #include <iostream>
 #include <unordered_map>
+#include <math.h>
 
 class ClashRoyaleDeck {
 public:
