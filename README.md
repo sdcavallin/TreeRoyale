@@ -1,5 +1,5 @@
 # TreeRoyale v1.0.9
-TreeRoyale is a user-friendly tool for Clash Royale players who want to discover new decks and card combinations.
+**TreeRoyale** is a user-friendly tool for Clash Royale players who want to discover new decks and card combinations.
 
 ![image](https://user-images.githubusercontent.com/35130806/236959099-65e9a517-fc6e-4d7c-891e-a73a983f2fb4.png)
 
